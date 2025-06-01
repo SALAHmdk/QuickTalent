@@ -31,9 +31,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
     // Spring Web MVC / REST
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
     // DevTools (facultatif)
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 

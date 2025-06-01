@@ -1,24 +1,24 @@
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <h3>Inscription Candidat</h3>
-        <form ng-submit="registerCandidat()">
-            <div class="form-group">
-                <label for="nom">Nom :</label>
-                <input type="text" class="form-control" id="nom" ng-model="user.nom" required>
-            </div>
-            <div class="form-group">
-                <label for="prenom">Prénom :</label>
-                <input type="text" class="form-control" id="prenom" ng-model="user.prenom" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email :</label>
-                <input type="email" class="form-control" id="email" ng-model="user.email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe :</label>
-                <input type="password" class="form-control" id="password" ng-model="user.password" required>
-            </div>
-            <button type="submit" class="btn btn-success">S’inscrire</button>
-        </form>
-    </div>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h2 class="mb-4">Inscription Candidat</h2>
+    <form ng-submit="vm.registerCandidat()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" ng-model="vm.credentials.email"
+               class="form-control" placeholder="Votre email" required>
+      </div>
+      <div class="form-group">
+        <label for="username">Identifiant</label>
+        <input type="text" id="username" ng-model="vm.credentials.username"
+               class="form-control" placeholder="Nom d'utilisateur" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" ng-model="vm.credentials.password"
+               class="form-control" placeholder="Mot de passe" required>
+      </div>
+      <div ng-if="vm.error" class="alert alert-danger">{{ vm.error }}</div>
+      <button type="submit" class="btn btn-success">S'inscrire</button>
+    </form>
+  </div>
 </div>
