@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.0'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'Plateform'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    // Si vous souhaitez forcer l’utilisation d’un JDK 21 (Oracle ou tout vendor)
+    // soit décommentez : vendor = JvmVendorSpec.ORACLE (ou ANY)
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+        vendor = JvmVendorSpec.ORACLE
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JPA / Hibernate (Jakarta Persistence)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Spring Security 6
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // Thymeleaf + extras Spring Security 6 (si vous l’utilisez pour vos vues)
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+    // Spring Web MVC / REST
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // DevTools (facultatif)
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Driver MySQL
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // Tests unitaires + tests de sécurité
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

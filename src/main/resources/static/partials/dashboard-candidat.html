@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h3>Mes Candidatures</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID Candidature</th>
+                    <th>Titre Offre</th>
+                    <th>Ville</th>
+                    <th>Date Candidature</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cand in candidatures">
+                    <td>{{ cand.id }}</td>
+                    <td>{{ cand.offre.titre }}</td>
+                    <td>{{ cand.offre.ville }}</td>
+                    <td>{{ cand.dateCandidature }}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" ng-click="supprimer(cand.id)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Postuler à une offre</h4>
+        <div class="form-inline">
+            <div class="form-group">
+                <input type="number" class="form-control" placeholder="ID Offre" ng-model="offreId" required>
+            </div>
+            <button class="btn btn-primary" ng-click="postuler()">Postuler</button>
+        </div>
+    </div>
+</div>

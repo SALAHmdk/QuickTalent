@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <h3>Mes Offres</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID Offre</th>
+                    <th>Titre</th>
+                    <th>Ville</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="offre in offres">
+                    <td>{{ offre.id }}</td>
+                    <td>{{ offre.titre }}</td>
+                    <td>{{ offre.ville }}</td>
+                    <td>{{ offre.description }}</td>
+                    <td>
+                        <button class="btn btn-info btn-sm" ng-click="chargerCandidatures(offre.id)">
+                            Voir candidatures
+                        </button>
+                        <button class="btn btn-danger btn-sm" ng-click="supprimerOffre(offre.id)">
+                            Supprimer
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Ajouter une nouvelle offre</h4>
+        <form ng-submit="ajouterOffre()">
+            <div class="form-group">
+                <label for="titre">Titre :</label>
+                <input type="text" class="form-control" id="titre" ng-model="newOffre.titre" required>
+            </div>
+            <div class="form-group">
+                <label for="ville">Ville :</label>
+                <input type="text" class="form-control" id="ville" ng-model="newOffre.ville" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description :</label>
+                <textarea class="form-control" id="description" ng-model="newOffre.description"></textarea>
+            </div>
+            <button class="btn btn-success">Créer l’offre</button>
+        </form>
+
+        <div ng-if="candidatures.length > 0">
+            <h4>Candidatures pour l’offre {{ selectedOffreId }}</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID Candidature</th>
+                        <th>Nom Candidat</th>
+                        <th>Prénom Candidat</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="cand in candidatures">
+                        <td>{{ cand.id }}</td>
+                        <td>{{ cand.candidat.nom }}</td>
+                        <td>{{ cand.candidat.prenom }}</td>
+                        <td>{{ cand.dateCandidature }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
