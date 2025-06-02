@@ -1,0 +1,32 @@
+<!-- src/app/features/candidat/my-candidatures/my-candidatures.component.html -->
+<div class="container">
+  <h3 class="my-4">Mes Candidatures</h3>
+
+  <div *ngIf="candidatures.length === 0 && !loading" class="alert alert-info">
+    Vous n’avez pas encore postulé à une offre.
+  </div>
+
+  <table class="table table-striped" *ngIf="candidatures.length > 0">
+    <thead>
+      <tr>
+        <th scope="col">ID Candidature</th>
+        <th scope="col">Offre</th>
+        <th scope="col">Date de postulation</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cand of candidatures">
+        <td>{{ cand.id }}</td>
+        <td>{{ cand.offre?.titre }}</td>
+        <td>{{ cand.datePostulation | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>
+          <button class="btn btn-sm btn-danger"
+                  (click)="deleteCandidature(cand.id)">
+            Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

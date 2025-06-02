@@ -1,0 +1,29 @@
+<!-- src/app/features/recruteur/candidatures-par-offre/candidatures-par-offre.component.html -->
+<div class="container">
+  <h3 class="my-4">Candidatures reçues pour l’offre #{{ offreId }}</h3>
+
+  <div *ngIf="candidatures.length === 0 && !loading" class="alert alert-info">
+    Aucune candidature pour cette offre.
+  </div>
+
+  <table class="table table-striped" *ngIf="candidatures.length > 0">
+    <thead>
+      <tr>
+        <th>ID Candidature</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cand of candidatures">
+        <td>{{ cand.id }}</td>
+        <td>{{ cand.candidat?.prenom }}</td>
+        <td>{{ cand.candidat?.nom }}</td>
+        <td>{{ cand.candidat?.email }}</td>
+        <td>{{ cand.datePostulation | date:'dd/MM/yyyy HH:mm' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

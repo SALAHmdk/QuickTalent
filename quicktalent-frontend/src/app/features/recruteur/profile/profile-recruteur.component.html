@@ -1,0 +1,27 @@
+<!-- src/app/features/recruteur/profile/profile-recruteur.component.html -->
+<div class="container col-md-6">
+  <h3 class="my-4">Mon Profil Recruteur</h3>
+  <form *ngIf="recruteur.id" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="entreprise" class="form-label">Entreprise</label>
+      <input id="entreprise" name="entreprise" type="text"
+             class="form-control"
+             [(ngModel)]="recruteur.entreprise" name="entreprise" required />
+    </div>
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom</label>
+      <input id="nom" name="nom" type="text"
+             class="form-control"
+             [(ngModel)]="recruteur.nom" name="nom" required />
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input id="email" name="email" type="email"
+             class="form-control"
+             [(ngModel)]="recruteur.email" name="email" required />
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="loading">
+      {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+    </button>
+  </form>
+</div>

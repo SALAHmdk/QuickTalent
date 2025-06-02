@@ -1,0 +1,27 @@
+<!-- src/app/features/candidat/profile/profile-candidat.component.html -->
+<div class="container col-md-6">
+  <h3 class="my-4">Mon Profil Candidat</h3>
+  <form *ngIf="candidat.id" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="prenom" class="form-label">Prénom</label>
+      <input id="prenom" name="prenom" type="text"
+             class="form-control"
+             [(ngModel)]="candidat.prenom" name="prenom" required />
+    </div>
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom</label>
+      <input id="nom" name="nom" type="text"
+             class="form-control"
+             [(ngModel)]="candidat.nom" name="nom" required />
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input id="email" name="email" type="email"
+             class="form-control"
+             [(ngModel)]="candidat.email" name="email" required />
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="loading">
+      {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+    </button>
+  </form>
+</div>

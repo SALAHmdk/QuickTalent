@@ -1,0 +1,41 @@
+<!-- src/app/features/recruteur/my-offres/my-offres.component.html -->
+<div class="container">
+  <h3 class="my-4">Mes Offres</h3>
+  <div class="mb-3">
+    <button class="btn btn-success" (click)="router.navigate(['/recruteur/my-offres/create'])">
+      + Nouvelle offre
+    </button>
+  </div>
+
+  <div *ngIf="offres.length === 0 && !loading" class="alert alert-info">
+    Vous n’avez pas encore publié d’offre.
+  </div>
+
+  <table class="table table-hover" *ngIf="offres.length > 0">
+    <thead>
+      <tr>
+        <th scope="col">ID Offre</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Ville</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let offre of offres">
+        <td>{{ offre.id }}</td>
+        <td>{{ offre.titre }}</td>
+        <td>{{ offre.ville }}</td>
+        <td>
+          <button class="btn btn-sm btn-danger me-2"
+                  (click)="deleteOffre(offre.id)">
+            Supprimer
+          </button>
+          <button class="btn btn-sm btn-primary"
+                  (click)="détailsCandidatures(offre.id)">
+            Voir candidatures
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

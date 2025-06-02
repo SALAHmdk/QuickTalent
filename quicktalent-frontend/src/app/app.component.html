@@ -1,0 +1,24 @@
+<!-- app.component.html -->
+<div class="app-container">
+  <!-- Exemple de barre de navigation basique -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a routerLink="/">QuickTalent</a>
+    </div>
+    <ul class="navbar-menu">
+      <li><a routerLink="/auth/login">Connexion</a></li>
+      <li><a routerLink="/auth/register-candidat">Inscription Candidat</a></li>
+      <li><a routerLink="/auth/register-recruteur">Inscription Recruteur</a></li>
+    </ul>
+  </nav>
+
+  <!-- Zone où le routeur injectera les composants enfants -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Exemple de footer minimal -->
+  <footer class="footer">
+    <p>© 2025 QuickTalent. Tous droits réservés.</p>
+  </footer>
+</div>

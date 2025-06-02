@@ -1,0 +1,5 @@
+/* src/styles.css */
+/* Ajoutez ici d’éventuelles surcharges CSS globales */
+body {
+  padding-top: 70px; /* pour laisser de la place à une barre de navigation fixe */
+}

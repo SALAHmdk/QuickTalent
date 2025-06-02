@@ -1,0 +1,11 @@
+<!-- src/app/features/candidat/offre-detail/offre-detail.component.html -->
+<div class="container col-md-8" *ngIf="offre">
+  <h3 class="my-4">{{ offre.titre }}</h3>
+  <p><strong>Ville :</strong> {{ offre.ville }}</p>
+  <p><strong>Description :</strong></p>
+  <p>{{ offre.description }}</p>
+
+  <button class="btn btn-success" (click)="postuler()">
+    Postuler à cette offre
+  </button>
+</div>

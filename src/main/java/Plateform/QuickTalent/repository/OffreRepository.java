@@ -12,4 +12,10 @@ public interface OffreRepository extends JpaRepository<Offre, Long> {
     List<Offre> findByTitreContainingIgnoreCase(String titre);
 
     List<Offre> findByRecruteurId(Long recruteurId);
+
+    List<Offre> findByTitreAndVilleIgnoreCase(String titre, String ville);
+
+    List<Offre> findByTitreIgnoreCase(String titre);
+
+    List<Offre> findByVilleIgnoreCase(String ville);
 }

@@ -1,0 +1,28 @@
+<!-- src/app/features/recruteur/create-offre/create-offre.component.html -->
+<div class="container col-md-6">
+  <h3 class="my-4">Créer une Offre</h3>
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="titre" class="form-label">Titre</label>
+      <input id="titre" name="titre" type="text"
+             class="form-control"
+             [(ngModel)]="offre.titre" name="titre" required />
+    </div>
+    <div class="mb-3">
+      <label for="ville" class="form-label">Ville</label>
+      <input id="ville" name="ville" type="text"
+             class="form-control"
+             [(ngModel)]="offre.ville" name="ville" required />
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" name="description"
+                class="form-control" rows="5"
+                [(ngModel)]="offre.description"
+                name="description" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="loading">
+      {{ loading ? 'Création...' : 'Créer l’offre' }}
+    </button>
+  </form>
+</div>
