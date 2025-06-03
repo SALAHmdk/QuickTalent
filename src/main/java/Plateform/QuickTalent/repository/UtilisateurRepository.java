@@ -11,10 +11,12 @@ import Plateform.QuickTalent.entite.Utilisateur;
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 
     /**
-     * Méthode Spring Data pour récupérer un utilisateur par adresse email.
-     * Nécessaire à ServiceRecrutement pour pouvoir appeler
-     * utilisateurRepo.findByEmail(...)
+     * Vérifie l’existence d’un utilisateur par email.
+     */
+    boolean existsByEmail(String email);
+
+    /**
+     * Recherche un utilisateur par email.
      */
     Optional<Utilisateur> findByEmail(String email);
-
 }

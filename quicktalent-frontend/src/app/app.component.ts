@@ -1,4 +1,6 @@
+// src/app/app.component.ts
 import { Component } from '@angular/core';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // Vous pouvez déclarer ici des propriétés globales si besoin
   title = 'QuickTalent Frontend';
+
+  constructor(public authService: AuthService) { }
 }

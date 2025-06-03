@@ -1,24 +1,32 @@
-<!-- app.component.html -->
+<!-- src/app/app.component.html -->
 <div class="app-container">
-  <!-- Exemple de barre de navigation basique -->
-  <nav class="navbar">
-    <div class="navbar-brand">
-      <a routerLink="/">QuickTalent</a>
+  <!-- Barre de navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a routerLink="/" class="navbar-brand">QuickTalent</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <!-- Bouton « Connexion » si pas token -->
+          <li class="nav-item" *ngIf="!authService.getToken()">
+            <a routerLink="/auth/login" class="nav-link">Connexion</a>
+          </li>
+          <!-- Bouton « Déconnexion » si token présent -->
+          <li class="nav-item" *ngIf="authService.getToken()">
+            <button (click)="authService.logout()" class="btn btn-outline-secondary">Déconnexion</button>
+          </li>
+        </ul>
+      </div>
     </div>
-    <ul class="navbar-menu">
-      <li><a routerLink="/auth/login">Connexion</a></li>
-      <li><a routerLink="/auth/register-candidat">Inscription Candidat</a></li>
-      <li><a routerLink="/auth/register-recruteur">Inscription Recruteur</a></li>
-    </ul>
   </nav>
 
-  <!-- Zone où le routeur injectera les composants enfants -->
-  <main class="content">
+  <!-- Contenu principal injecté par le router -->
+  <main class="container my-4">
     <router-outlet></router-outlet>
   </main>
 
-  <!-- Exemple de footer minimal -->
-  <footer class="footer">
-    <p>© 2025 QuickTalent. Tous droits réservés.</p>
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="container text-center">
+      © 2025 QuickTalent. Tous droits réservés.
+    </div>
   </footer>
 </div>

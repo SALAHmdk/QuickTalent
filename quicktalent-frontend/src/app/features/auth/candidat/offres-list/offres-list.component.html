@@ -1,35 +1,42 @@
-<!-- src/app/features/candidat/offres-list/offres-list.component.html -->
-<div class="container">
-  <h3 class="my-4">Liste des Offres</h3>
+<!-- src/app/features/auth/candidat/offres-list/offres-list.component.html -->
+<div class="container col-md-8 mx-auto">
+  <h2 class="my-4">Liste des offres</h2>
 
-  <div class="row mb-3">
-    <div class="col-md-4">
-      <input type="text" class="form-control" placeholder="Filtrer par titre"
-             [(ngModel)]="titreFilter" name="titreFilter"
-             (ngModelChange)="onFilter()" />
+  <div class="mb-3 row">
+    <div class="col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrer par titre..."
+        [(ngModel)]="titreFilter"
+        name="titreFilter"
+      />
     </div>
-    <div class="col-md-4">
-      <input type="text" class="form-control" placeholder="Filtrer par ville"
-             [(ngModel)]="villeFilter" name="villeFilter"
-             (ngModelChange)="onFilter()" />
-    </div>
-    <div class="col-md-4 text-end">
-      <button class="btn btn-secondary" (click)="loadOffres()" [disabled]="loading">
-        {{ loading ? 'Chargement...' : 'Actualiser' }}
-      </button>
+    <div class="col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrer par ville..."
+        [(ngModel)]="villeFilter"
+        name="villeFilter"
+      />
     </div>
   </div>
 
-  <div *ngIf="offres.length === 0 && !loading" class="alert alert-info">
+  <div *ngIf="filteredOffres.length === 0 && !loading" class="alert alert-warning">
     Aucune offre trouvée.
   </div>
 
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let offre of offres" (click)="viewDetails(offre)"
-        style="cursor: pointer;">
+  <ul class="list-group" *ngIf="filteredOffres.length > 0">
+    <li
+      class="list-group-item"
+      *ngFor="let offre of filteredOffres"
+      (click)="onSelectOffre(offre.id)"
+      style="cursor: pointer;"
+    >
       <h5>{{ offre.titre }}</h5>
-      <p><strong>Ville :</strong> {{ offre.ville }}</p>
-      <p>{{ offre.description | slice:0:100 }}...</p>
+      <p>{{ offre.ville }} – {{ offre.dateCreation | date:'dd/MM/yyyy' }}</p>
+      <p>{{ offre.description | slice:0:100 }}…</p>
     </li>
   </ul>
 </div>

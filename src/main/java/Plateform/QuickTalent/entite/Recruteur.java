@@ -18,7 +18,7 @@ public class Recruteur extends Utilisateur {
     @OneToMany(mappedBy = "recruteur", cascade = CascadeType.ALL)
     private List<Offre> offres;
 
-    // Getters & setters
+    // ----- Getters & setters spécifiques à Recruteur -----
 
     public String getEntreprise() {
         return entreprise;
@@ -35,4 +35,11 @@ public class Recruteur extends Utilisateur {
     public void setOffres(List<Offre> offres) {
         this.offres = offres;
     }
+
+    // Ne pas redéfinir setRole(...) : on hérite de Utilisateur.setRole(...)
+    // (donc on supprime complètement le bloc ci-dessous)
+
+    // public void setRole(String string) {
+    // throw new UnsupportedOperationException("Unimplemented method 'setRole'");
+    // }
 }

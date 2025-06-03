@@ -1,40 +1,37 @@
 // src/app/app-routing.module.ts
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-// Guards
-import { AuthGuard } from './core/guards/auth.guard';
-import { RoleGuard } from './core/guards/role.guard';
+import { RoleGuard } from './core/guards/role.guard'; // si vous l’avez implémenté
 
 const routes: Routes = [
-  // Redirection par défaut
-  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
-
-  // Routes “/auth” (login, register)
   {
     path: 'auth',
-    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./features/auth/auth.module')
+      .then(m => m.AuthModule)
   },
-
-  // Routes “/candidat” (protégées)
   {
     path: 'candidat',
-    loadChildren: () => import('./features/candidat/candidat.module').then(m => m.CandidatModule),
-    canActivate: [AuthGuard, RoleGuard],
-    data: { role: 'ROLE_CANDIDAT' }
+    canActivate: [RoleGuard],           // si vous verrouillez par rôle
+    data: { roles: ['ROLE_CANDIDAT'] },
+    loadChildren: () => import('./features/auth/candidat/candidat.module')
+      .then(m => m.CandidatModule)
   },
-
-  // Routes “/recruteur” (protégées)
   {
     path: 'recruteur',
-    loadChildren: () => import('./features/recruteur/recruteur.module').then(m => m.RecruteurModule),
-    canActivate: [AuthGuard, RoleGuard],
-    data: { role: 'ROLE_RECRUTEUR' }
+    canActivate: [RoleGuard],
+    data: { roles: ['ROLE_RECRUTEUR'] },
+    loadChildren: () => import('./features/recruteur/recruteur.module')
+      .then(m => m.RecruteurModule)
   },
-
-  // Page 404 / wildcard
-  { path: '**', redirectTo: '/auth/login' }
+  {
+    path: '',
+    redirectTo: '/auth/login',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: '/auth/login'
+  }
 ];
 
 @NgModule({

@@ -1,33 +1,27 @@
-// src/app/core/services/candidature.service.ts
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import { environment } from '../../../environments/environment';
 import { Candidature } from '../models/candidature.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CandidatureService {
-
-  private apiUrl = environment.apiUrl + '/api/candidats/me/candidatures';
+  private baseUrl = 'http://localhost:8080/api'; // Remplacez par votre URL API
 
   constructor(private http: HttpClient) { }
 
-  // GET /api/candidats/me/candidatures
-  getMyCandidatures(): Observable<Candidature[]> {
-    return this.http.get<Candidature[]>(this.apiUrl);
+  // Correction: La méthode doit retourner un Observable
+  getMesCandidatures(): Observable<Candidature[]> {
+    return this.http.get<Candidature[]>(`${this.baseUrl}/candidatures/mes-candidatures`);
   }
 
-  // POST /api/candidats/me/candidatures
-  create(candidature: Candidature): Observable<Candidature> {
-    return this.http.post<Candidature>(this.apiUrl, candidature);
+  // Autres méthodes du service...
+  postuler(offreId: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/candidatures/postuler/${offreId}`, {});
   }
 
-  // DELETE /api/candidats/me/candidatures/{id}
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  retirerCandidature(candidatureId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/candidatures/${candidatureId}`);
   }
 }

@@ -1,33 +1,55 @@
-// src/app/core/services/offre.service.ts
-
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-
-import { environment } from '../../../environments/environment';
+// src/app/features/auth/candidat/offres-list/offres-list.component.ts
+import { Component, OnInit } from '@angular/core';
 import { Offre } from '../models/offre.model';
+import { OffreService } from '../services/offre.service'; // <— chemin précis vers OffreService
 
-@Injectable({
-  providedIn: 'root'
+@Component({
+  selector: 'app-offres-list',
+  templateUrl: './offres-list.component.html',
+  styleUrls: ['./offres-list.component.css']
 })
-export class OffreService {
+export class OffresListComponent implements OnInit {
+  offres: Offre[] = [];
+  loading = false;
 
-  private apiUrl = environment.apiUrl + '/api/offres';
+  titreFilter = '';
+  villeFilter = '';
 
-  constructor(private http: HttpClient) { }
+  // SonarQube suggère readonly car on ne réassigne jamais offreService une fois injecté
+  constructor(private readonly offreService: OffreService) { }
 
-  getAll(titre?: string, ville?: string): Observable<Offre[]> {
-    let params = new HttpParams();
-    if (titre) {
-      params = params.set('titre', titre);
-    }
-    if (ville) {
-      params = params.set('ville', ville);
-    }
-    return this.http.get<Offre[]>(`${this.apiUrl}`, { params });
+  ngOnInit(): void {
+    this.chargerOffres();
   }
 
-  getById(id: number): Observable<Offre> {
-    return this.http.get<Offre>(`${this.apiUrl}/${id}`);
+  /** Va récupérer la liste des offres depuis le backend en prenant en compte
+   *  les filtres titre et ville (s’ils sont renseignés). */
+  chargerOffres(): void {
+    this.loading = true;
+
+    // Appel à getAll du service : getAll(titre?: string, ville?: string)
+    this.offreService.getAll(this.titreFilter, this.villeFilter).subscribe({
+      next: (data: Offre[]) => {
+        this.offres = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+        // Ici, vous pouvez déclencher un message d’erreur si vous le souhaitez
+      }
+    });
+  }
+
+  /** Méthode déclenchée lorsqu’on clique sur le bouton “Rechercher” dans le template */
+  onRechercher(): void {
+    this.chargerOffres();
+  }
+
+  /** Filtrage additionnel côté client (optionnel) */
+  get filteredOffres(): Offre[] {
+    return this.offres.filter(o =>
+      o.titre.toLowerCase().includes(this.titreFilter.toLowerCase()) &&
+      o.ville.toLowerCase().includes(this.villeFilter.toLowerCase())
+    );
   }
 }

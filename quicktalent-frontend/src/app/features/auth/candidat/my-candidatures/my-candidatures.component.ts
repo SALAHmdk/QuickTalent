@@ -1,52 +1,53 @@
-// src/app/features/candidat/my-candidatures/my-candidatures.component.ts
-
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 import { Candidature } from '../../../../core/models/candidature.model';
-import { CandidatService } from '../../../../core/services/candidat.service';
+import { CandidatureService } from '../../../../core/services/candidature.service';
 
 @Component({
   selector: 'app-my-candidatures',
-  templateUrl: './my-candidatures.component.html'
+  imports: [CommonModule, FormsModule],
+  templateUrl: './my-candidatures.component.html',
+  styleUrls: ['./my-candidatures.component.css']
 })
 export class MyCandidaturesComponent implements OnInit {
-
   candidatures: Candidature[] = [];
   loading = false;
 
-  constructor(
-    private candidatService: CandidatService,
-    private toastr: ToastrService
-  ) { }
+  constructor(private candidatureService: CandidatureService) {}
 
   ngOnInit(): void {
     this.loadCandidatures();
   }
 
-  loadCandidatures() {
+  loadCandidatures(): void {
     this.loading = true;
-    this.candidatService.getMyCandidatures().subscribe({
-      next: res => {
-        this.candidatures = res;
+
+    // Correction: Vérifiez que getMesCandidatures() retourne bien un Observable
+    this.candidatureService.getMesCandidatures().subscribe({
+      next: (data: Candidature[]) => {
+        this.candidatures = data;
         this.loading = false;
       },
-      error: err => {
-        this.toastr.error('Impossible de charger vos candidatures', 'Erreur');
+      error: (error) => {
+        console.error('Erreur lors du chargement des candidatures:', error);
         this.loading = false;
       }
     });
   }
 
-  deleteCandidature(id: number | undefined) {
-    if (!id) { return; }
-    this.candidatService.deleteMyCandidature(id).subscribe({
-      next: () => {
-        this.toastr.success('Candidature supprimée', 'Succès');
-        this.loadCandidatures();
-      },
-      error: err => {
-        this.toastr.error('Erreur lors de la suppression', 'Erreur');
-      }
-    });
+  // Méthode pour retirer une candidature
+  retirerCandidature(candidatureId: number): void {
+    if (confirm('Êtes-vous sûr de vouloir retirer cette candidature ?')) {
+      this.candidatureService.retirerCandidature(candidatureId).subscribe({
+        next: () => {
+          this.candidatures = this.candidatures.filter(c => c.id !== candidatureId);
+          console.log('Candidature retirée avec succès');
+        },
+        error: (error) => {
+          console.error('Erreur lors de la suppression:', error);
+        }
+      });
+    }
   }
 }

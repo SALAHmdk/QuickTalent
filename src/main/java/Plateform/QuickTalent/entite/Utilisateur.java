@@ -27,7 +27,7 @@ public abstract class Utilisateur {
     @Column(nullable = false)
     private String role; // ex. "ROLE_CANDIDAT" ou "ROLE_RECRUTEUR"
 
-    // Getters & setters
+    // ----- Getters & setters communs -----
 
     public Long getId() {
         return id;
@@ -53,6 +53,7 @@ public abstract class Utilisateur {
         this.password = password;
     }
 
+    // Le setter et getter pour le rôle
     public String getRole() {
         return role;
     }

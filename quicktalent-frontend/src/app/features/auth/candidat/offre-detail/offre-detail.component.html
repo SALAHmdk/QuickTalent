@@ -1,11 +1,81 @@
-<!-- src/app/features/candidat/offre-detail/offre-detail.component.html -->
-<div class="container col-md-8" *ngIf="offre">
-  <h3 class="my-4">{{ offre.titre }}</h3>
-  <p><strong>Ville :</strong> {{ offre.ville }}</p>
-  <p><strong>Description :</strong></p>
-  <p>{{ offre.description }}</p>
+<!-- src/app/features/auth/candidat/offres-list/offres-list.component.html -->
 
-  <button class="btn btn-success" (click)="postuler()">
-    Postuler à cette offre
-  </button>
+<div class="offres-container">
+  <!-- Filtres de recherche -->
+  <div class="offres-filters">
+    <div class="filter-input">
+      <label for="titreFilter">Filtrer par titre</label>
+      <input
+        id="titreFilter"
+        type="text"
+        class="form-control"
+        [(ngModel)]="titreFilter"
+        name="titreFilter"
+        placeholder="Entrez un mot-clé"
+      />
+    </div>
+    <div class="filter-input">
+      <label for="villeFilter">Filtrer par ville</label>
+      <input
+        id="villeFilter"
+        type="text"
+        class="form-control"
+        [(ngModel)]="villeFilter"
+        name="villeFilter"
+        placeholder="Entrez une ville"
+      />
+    </div>
+  </div>
+
+  <!-- Affiche “Chargement” pendant la récupération des données -->
+  <div *ngIf="loading" class="loading-message">
+    Chargement des offres, veuillez patienter…
+  </div>
+
+  <!-- Affiche un message si aucune offre disponible -->
+  <div
+    *ngIf="!loading && offres.length === 0"
+    class="no-offres-message"
+  >
+    Aucune offre trouvée.
+  </div>
+
+  <!-- Tableau des offres -->
+  <table
+    *ngIf="!loading && offres.length > 0"
+    class="offres-table"
+  >
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Ville</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let offre of offres"
+        (click)="voirDetails(offre.id)"
+        style="cursor: pointer;"
+      >
+        <td>{{ offre.titre }}</td>
+        <td>{{ offre.ville }}</td>
+        <td>{{ offre.description | slice: 0:100 }}...</td>
+        <td>
+          <button
+            type="button"
+            class="btn-details"
+            (click)="voirDetails(offre.id); $event.stopPropagation()"
+          >
+            Voir détails
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="offres-footer">
+    © 2025 QuickTalent – Toutes les offres affichées sont fictives.
+  </div>
 </div>
